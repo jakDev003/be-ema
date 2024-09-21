@@ -10,8 +10,5 @@ services:
       - "8001:8080"
     volumes:
       - ./:/App
-    command: >
-      sh -c "
-            dotnet ema.dll"
     env_file:
       - ./.env
