@@ -8,12 +8,9 @@ COPY ./ema/. ./
 RUN dotnet publish -c Release --property:PublishDir=out
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet ef database drop -f -v --context AuthenticationDbContext
-RUN dotnet ef database drop -f -v --context ApplicationDbContext
-RUN dotnet ef migrations add Initial --context AuthenticationDbContext
-RUN dotnet ef migrations add Initial --context ApplicationDbContext
-RUN dotnet ef database update Initial --context AuthenticationDbContext
-RUN dotnet ef database update Initial --context ApplicationDbContext
+RUN dotnet ef database drop -f -v
+RUN dotnet ef migrations add Initial
+RUN dotnet ef database update Initial
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
