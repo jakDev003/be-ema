@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <PropertyGroup>
-      <OutputPath>$('AppData')\Markdown Monster\</OutputPath>
+      <OutputPath>$out\</OutputPath>
       <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
