@@ -9,7 +9,7 @@ services:
     ports:
       - "8001:8080"
     volumes:
-      - ./ema:/ema
+      - ./:/App
     command: >
       sh -c "
             dotnet ema.dll"
