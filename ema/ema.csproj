@@ -23,4 +23,9 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
+    <PropertyGroup>
+      <OutputPath>$('AppData')\Markdown Monster\</OutputPath>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
 </Project>
