@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <PropertyGroup>
-      <OutputPath>$(SolutionDir)/App/out</OutputPath>
+      <OutputPath>/App/out</OutputPath>
       <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
