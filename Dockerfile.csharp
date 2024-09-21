@@ -5,12 +5,12 @@ COPY ./ema/*.csproj ./
 RUN dotnet restore
 
 COPY ./ema/. ./
-RUN dotnet publish -c Release --property:PublishDir=out
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet ef database drop -f -v
 RUN dotnet ef migrations add Initial
 RUN dotnet ef database update Initial
+RUN dotnet publish -c Release --property:PublishDir=out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
