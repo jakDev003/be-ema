@@ -1,0 +1,17 @@
+services:
+  csharp:
+    container_name: csharp
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    build:
+      context: .
+      dockerfile: Dockerfile.csharp
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./ema:/ema
+    command: >
+      sh -c "
+            dotnet ema.dll"
+    env_file:
+      - ./.env

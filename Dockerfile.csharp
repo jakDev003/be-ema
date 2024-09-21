@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+WORKDIR /app
+
+COPY ./ema/*.csproj ./
+RUN dotnet restore
+
+COPY ./ema/. ./
+RUN dotnet publish -c Release --property:PublishDir=out
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+RUN dotnet ef database drop -f -v --context AuthenticationDbContext
+RUN dotnet ef database drop -f -v --context ApplicationDbContext
+RUN dotnet ef migrations add Initial --context AuthenticationDbContext
+RUN dotnet ef migrations add Initial --context ApplicationDbContext
+RUN dotnet ef database update Initial --context AuthenticationDbContext
+RUN dotnet ef database update Initial --context ApplicationDbContext
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "ema.dll"]
