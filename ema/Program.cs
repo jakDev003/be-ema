@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddControllers();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(
         options =>
         {
@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "secretkey"))
         };
     });
 
@@ -49,17 +49,17 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
     options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
 });
-    
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
